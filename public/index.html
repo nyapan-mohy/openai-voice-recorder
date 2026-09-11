@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ja">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f8fa"><title>Voice Prep Studio — カスタム音声の録音</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23d9543c'/%3E%3Crect x='16' y='8' width='8' height='17' rx='4' fill='white'/%3E%3Cpath d='M11 19a9 9 0 0 0 18 0M20 28v5' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"><link rel="stylesheet" href="/style.css"><script type="module" src="/app.js"></script></head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="/" aria-label="Voice Prep Studio ホーム"><span class="brand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M8 22h8"/></svg></span><span>voice prep<span class="brand-sub">RECORDING STUDIO</span></span></a>
+    <p class="nav-caption">録音のステップ</p>
+    <nav aria-label="録音のステップ">
+      <button class="step active" data-step="setup"><span class="step-number">01</span><span>録音の準備<small>マイクと環境を確認</small></span></button>
+      <button class="step" data-step="consent"><span class="step-number">02</span><span>同意音声<small>指定の同意文を読む</small></span><span class="step-check" id="consent-check"></span></button>
+      <button class="step" data-step="sample"><span class="step-number">03</span><span>声のサンプル<small>あなたらしい声を録る</small></span><span class="step-check" id="sample-check"></span></button>
+      <button class="step" data-step="export"><span class="step-number">04</span><span>確認・書き出し<small>2つの音声を保存</small></span></button>
+    </nav>
+    <div class="sidebar-bottom"><span class="local-dot"></span> このPCで処理<span>音声の外部送信はありません</span><a href="https://developers.openai.com/api/docs/guides/custom-voices" target="_blank" rel="noreferrer">OpenAI 公式ガイド ↗</a></div>
+  </aside>
+  <main>
+    <header class="topbar"><span>CUSTOM VOICE / RECORDING</span><span class="save-status" id="save-status">ブラウザー内に自動保存</span></header>
+    <div class="heading"><div><div class="eyebrow">YOUR VOICE, READY TO CREATE.</div><h1 id="page-title">いい声は、いい準備から。</h1><p id="page-description">マイクを整えて、あなたの声をクリアに残しましょう。</p></div><div class="session-field"><label for="voice-name">声の名前</label><input id="voice-name" maxlength="60" value="my-voice" placeholder="例：mamoru-natural" autocomplete="off"></div></div>
+    <div id="notice" class="notice" role="status" hidden></div>
+    <div class="workspace" id="record-workspace">
+      <div class="main-column">
+        <section class="card script-card" aria-labelledby="script-title">
+          <div class="card-top"><span class="eyebrow" id="script-eyebrow">STEP 01 / SETUP</span><span class="chip" id="script-chip">約1分で準備</span></div>
+          <h2 id="script-title">録音する前に</h2>
+          <div id="setup-content"><p class="section-lead">普段の話し声で、短くマイクをテストしてください。</p><div class="setup-tips"><div><span>01</span><strong>静かな場所を選ぶ</strong><p>窓を閉め、空調や反響をできるだけ抑えます。</p></div><div><span>02</span><strong>マイクと約18〜20cm</strong><p>距離を保ち、あればポップガードを使います。</p></div><div><span>03</span><strong>いつもの自然な声で</strong><p>本番も声の調子・話す速さをそろえます。</p></div></div></div>
+          <div id="consent-content" hidden><p class="section-lead">録音する本人が、次の指定文だけを、そのまま読み上げてください。</p><blockquote id="consent-script"></blockquote><div class="script-foot"><span>日本語 / ja · 公式の指定文</span><span>名前・前置き・言い換えを加えない</span></div></div>
+          <div id="sample-content" hidden><p class="section-lead">生成したい声の調子で、複数の文を自然に話してください。</p><label class="sr-only" for="sample-script">声のサンプルの読み上げ原稿</label><textarea id="sample-script" rows="5" maxlength="2000"></textarea><div class="script-foot"><span>自由に編集できるオリジナル原稿</span><button id="reset-script" class="text-button">原稿を戻す</button></div></div>
+        </section>
+        <section class="card recorder-card" aria-label="録音コントロール">
+          <div class="recorder-top"><span class="recorder-state" id="recorder-state"><span class="state-dot"></span><span id="state-label">マイク未接続</span></span><span class="format-label" id="format-label">WAV · MONO · 16 BIT</span></div>
+          <div class="wave-container"><canvas id="waveform" aria-label="マイクの音量波形"></canvas><div id="countdown" hidden aria-live="assertive"></div></div>
+          <div class="timeline"><span id="time-display">00:00.0</span><span id="time-limit">録音上限 29.9秒</span></div>
+          <div class="record-progress"><progress id="record-progress" value="0" max="29.9" aria-label="録音の経過時間"></progress></div>
+          <div class="record-actions"><button id="record-button" class="primary-button"><span class="record-dot"></span><span id="record-button-label">マイクをテスト</span></button><span id="record-hint">入力音量の確認のみ・保存されません</span></div>
+          <div class="level-row"><span>入力レベル</span><meter id="level-meter" min="-60" max="0" low="-35" high="-6" optimum="-18" value="-60" aria-label="マイク入力レベル"></meter><span id="level-db">— dBFS</span></div>
+        </section>
+        <section class="takes-section" id="takes-section" hidden><div class="section-heading"><h2>録音したテイク <span id="take-count">0</span></h2><span>選択したテイクを書き出します</span></div><div id="takes-list"></div></section>
+        <div class="bottom-nav"><span id="bottom-note">まずはマイクの入力を確認しましょう。</span><button id="next-button" class="secondary-button">同意音声へ <span>→</span></button></div>
+      </div>
+      <aside class="support-column">
+        <section class="card device-card"><span class="eyebrow">INPUT SETTINGS</span><h2>マイクの設定</h2><label for="microphone">入力デバイス</label><select id="microphone"><option value="">既定のマイク</option></select><p id="device-hint">テスト開始時に、マイクへのアクセスを許可してください。</p><div class="device-spec"><span>出力形式</span><strong>非圧縮 WAV</strong><span>チャンネル</span><strong>モノラル</strong><span>音声処理</span><strong>自動補正 OFF を要求</strong></div><p class="fine-print" id="actual-settings">ノイズ抑制・エコー除去・自動音量補正をオフにして録音します。機器側の処理は別途ご確認ください。</p></section>
+        <section class="guide-card"><span class="guide-icon">✳</span><h3 id="guide-title">2つの録音で、準備完了。</h3><p id="guide-text">同意音声と声のサンプルを別々に録音。同じ本人の声で、続けて録るのがおすすめです。</p><div class="guide-divider"></div><p class="fine-print">テイクはこのブラウザーに保存されます。大切な録音はWAVでも保存してください。</p></section>
+        <div class="access-note"><span>i</span><p>カスタム音声は利用資格のある組織向けです。このツールでは申請用の音声ファイルを準備します。</p></div>
+      </aside>
+    </div>
+    <section id="export-panel" hidden>
+      <div class="card export-card"><div class="card-top"><span class="eyebrow">STEP 04 / EXPORT</span><span class="chip">録音を仕上げる</span></div><h2>2つの音声を、ひとつのセットに。</h2><p class="section-lead">選択中のテイクを試聴し、読み間違いや周囲の音がないか確認してください。</p><div id="export-files" class="export-files"></div><div class="review-checks"><label><input type="checkbox" id="review-consent"> 同意音声は本人が指定文だけを読み、サンプルも同じ本人の声であることを確認しました。</label><label><input type="checkbox" id="review-quality"> 2本とも最後まで試聴し、言い間違い・音割れ・大きな雑音がないことを確認しました。</label></div><button class="primary-button" id="export-button" disabled>↓ 録音セットを保存（ZIP）</button><p class="fine-print" id="export-status">同意音声と声のサンプルを録音すると書き出せます。</p></div>
+      <div class="export-info"><section class="card"><span class="eyebrow">IN YOUR DOWNLOAD</span><h3>ZIPに入るもの</h3><ul><li><strong>consent.wav</strong><span>本人の同意音声</span></li><li><strong>sample.wav</strong><span>選択した声のサンプル</span></li><li><strong>recording-info.json</strong><span>録音条件と選択した原稿</span></li><li><strong>README.txt</strong><span>登録手順と確認事項</span></li></ul></section><section class="card"><span class="eyebrow">WHAT'S NEXT</span><h3>録音後の流れ</h3><p>利用資格を確認したうえで、APIから同意音声を登録し、そのIDとサンプルでカスタム音声を作成します。</p><p>発話内容・話者の一致・申請可否は、このツールでは自動判定しません。</p><a href="https://developers.openai.com/api/docs/guides/custom-voices" target="_blank" rel="noreferrer">公式の登録手順を確認 ↗</a></section></div>
+    </section>
+    <footer>VOICE PREP STUDIO <span>あなたの声を、そのまま。</span></footer>
+  </main>
+</body></html>

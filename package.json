@@ -1,0 +1,8 @@
+{
+  "name": "voice-prep-studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node server.mjs", "test": "node tests/audio.test.mjs", "voice:check": "node scripts/create-voice.mjs --check", "voice:create": "node scripts/create-voice.mjs", "test:registration": "node tests/registration.test.mjs" },
+  "engines": { "node": ">=18" }
+}
