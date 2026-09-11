@@ -33,5 +33,5 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const port = Number(process.env.PORT || 4317);
   const server = createServer();
   server.on('error', err => { console.error(err.code === 'EADDRINUSE' ? `Port ${port} is in use. Open http://127.0.0.1:${port} or choose another PORT.` : err.message); process.exitCode = 1; });
-  server.listen(port, '127.0.0.1', () => console.log(`Voice Prep Studio: http://127.0.0.1:${port}\nPress Ctrl+C to stop.`));
+  server.listen(port, '127.0.0.1', () => console.log(`Voice Recorder for OpenAI: http://127.0.0.1:${port}\nPress Ctrl+C to stop.`));
 }

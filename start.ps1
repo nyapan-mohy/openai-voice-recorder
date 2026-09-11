@@ -11,6 +11,6 @@ if (-not $studioRunning) {
         Start-Sleep -Milliseconds 200
         try { $health = Invoke-RestMethod -Uri "$studioUrl/health" -TimeoutSec 1; if ($health.app -eq 'voice-prep-studio') { $studioRunning = $true; break } } catch {}
     }
-    if (-not $studioRunning) { throw 'Could not start Voice Prep Studio. Check port 4317.' }
+    if (-not $studioRunning) { throw 'Could not start Voice Recorder for OpenAI. Check port 4317.' }
 }
 Start-Process $studioUrl

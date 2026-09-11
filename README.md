@@ -1,4 +1,4 @@
-# Voice Prep Studio
+# Voice Recorder for OpenAI
 
 OpenAI のカスタム音声登録に向けて、本人の同意音声と声のサンプルを録音する日本語のローカルツールです。API キーや追加 npm パッケージは不要です。録音・保存・書き出しはブラウザー内で完結します。
 

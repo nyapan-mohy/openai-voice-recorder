@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="ja">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f8fa"><title>Voice Prep Studio — カスタム音声の録音</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23d9543c'/%3E%3Crect x='16' y='8' width='8' height='17' rx='4' fill='white'/%3E%3Cpath d='M11 19a9 9 0 0 0 18 0M20 28v5' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"><link rel="stylesheet" href="/style.css"><script type="module" src="/app.js"></script></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f8fa"><title>Voice Recorder for OpenAI — カスタム音声の録音</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23d9543c'/%3E%3Crect x='16' y='8' width='8' height='17' rx='4' fill='white'/%3E%3Cpath d='M11 19a9 9 0 0 0 18 0M20 28v5' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"><link rel="stylesheet" href="/style.css"><script type="module" src="/app.js"></script></head>
 <body>
   <aside class="sidebar">
-    <a class="brand" href="/" aria-label="Voice Prep Studio ホーム"><span class="brand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M8 22h8"/></svg></span><span>voice prep<span class="brand-sub">RECORDING STUDIO</span></span></a>
+    <a class="brand" href="/" aria-label="Voice Recorder for OpenAI ホーム"><span class="brand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M8 22h8"/></svg></span><span>voice recorder<span class="brand-sub">FOR OPENAI</span></span></a>
     <p class="nav-caption">録音のステップ</p>
     <nav aria-label="録音のステップ">
       <button class="step active" data-step="setup"><span class="step-number">01</span><span>録音の準備<small>マイクと環境を確認</small></span></button>
@@ -47,6 +47,6 @@
       <div class="card export-card"><div class="card-top"><span class="eyebrow">STEP 04 / EXPORT</span><span class="chip">録音を仕上げる</span></div><h2>2つの音声を、ひとつのセットに。</h2><p class="section-lead">選択中のテイクを試聴し、読み間違いや周囲の音がないか確認してください。</p><div id="export-files" class="export-files"></div><div class="review-checks"><label><input type="checkbox" id="review-consent"> 同意音声は本人が指定文だけを読み、サンプルも同じ本人の声であることを確認しました。</label><label><input type="checkbox" id="review-quality"> 2本とも最後まで試聴し、言い間違い・音割れ・大きな雑音がないことを確認しました。</label></div><button class="primary-button" id="export-button" disabled>↓ 録音セットを保存（ZIP）</button><p class="fine-print" id="export-status">同意音声と声のサンプルを録音すると書き出せます。</p></div>
       <div class="export-info"><section class="card"><span class="eyebrow">IN YOUR DOWNLOAD</span><h3>ZIPに入るもの</h3><ul><li><strong>consent.wav</strong><span>本人の同意音声</span></li><li><strong>sample.wav</strong><span>選択した声のサンプル</span></li><li><strong>recording-info.json</strong><span>録音条件と選択した原稿</span></li><li><strong>README.txt</strong><span>登録手順と確認事項</span></li></ul></section><section class="card"><span class="eyebrow">WHAT'S NEXT</span><h3>録音後の流れ</h3><p>利用資格を確認したうえで、APIから同意音声を登録し、そのIDとサンプルでカスタム音声を作成します。</p><p>発話内容・話者の一致・申請可否は、このツールでは自動判定しません。</p><a href="https://developers.openai.com/api/docs/guides/custom-voices" target="_blank" rel="noreferrer">公式の登録手順を確認 ↗</a></section></div>
     </section>
-    <footer>VOICE PREP STUDIO <span>あなたの声を、そのまま。</span></footer>
+    <footer>VOICE RECORDER FOR OPENAI <span>あなたの声を、そのまま。</span></footer>
   </main>
 </body></html>

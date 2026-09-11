@@ -77,7 +77,7 @@ test('server serves only application files, with local-only access and no upload
   const server = createServer(); await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   const base = `http://127.0.0.1:${server.address().port}`;
   try {
-    const page = await fetch(base); assert.equal(page.status, 200); assert.match(await page.text(), /Voice Prep Studio/);
+    const page = await fetch(base); assert.equal(page.status, 200); assert.match(await page.text(), /Voice Recorder for OpenAI/);
     assert.ok(page.headers.get('content-security-policy').includes("connect-src 'self'"));
     assert.equal((await fetch(base + '/capture-worklet.js')).status, 200);
     assert.equal((await fetch(base + '/package.json')).status, 404);
